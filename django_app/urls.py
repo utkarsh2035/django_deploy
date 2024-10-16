@@ -19,5 +19,13 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls')),    
+    path('polls/', include('polls.urls')),
+    path('api/', include('polls.api_urls')),   
 ]
+
+# Get list of Questions
+# curl -X GET http://127.0.0.1:8000/api/questions/
+# Create a new question
+# curl -X POST http://127.0.0.1:8000/api/questions/ \
+#      -H 'Content-Type: application/json' \
+#      -d '{"question_text": "New Question?", "pub_date": "2024-10-16T12:00:00Z"}'

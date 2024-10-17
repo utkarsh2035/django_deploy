@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
     path('api/', include('polls.api_urls')),   
+    path('accounts/', include('accounts.urls')),  # Include accounts URLs
 ]
 
 # Get list of Questions

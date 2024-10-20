@@ -3,7 +3,10 @@ from .models import Question, Choice
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ContactForm
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
+@login_required
 
 
 def contact(request):
@@ -22,9 +25,11 @@ def contact(request):
 
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5] # get the last 5 questions
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'polls/index.html', context)
+    latest_question_list = Question.objects.order_by('-pub_date')
+    paginator = Paginator(latest_question_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'polls/index.html', {'page_obj':page_obj})
 
 # class Base approch 
 # from django.views import View
